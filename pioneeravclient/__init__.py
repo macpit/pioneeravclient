@@ -37,9 +37,9 @@ class VSX528Telnet(object):
         command = cmd + '\r\n'
 
         self.tn.read_eager()  # Cleanup any pending output.
-        self.tn.write(command)
+        self.tn.write(command.encode('ascii'))
         sleep(0.1)  # Cool-down time (taken from github/PioneerRebel)
-        return self.tn.read_eager().replace('\r\n', '');
+        return self.tn.read_eager().decode('ascii').replace('\r\n', '');
 
     def setVolUp(self):
         "Send request to increment volume by 1 unit"""
@@ -117,6 +117,8 @@ class PioneerAvClient(object):
         elif model == 'VSX-1023':
             return VSX528Telnet(ip,port)
         elif model == 'VSX-921':
+            return VSX528Telnet(ip,port)
+        elif model == 'SC-LX76':
             return VSX528Telnet(ip,port)
         else:
             PioneerAvClientException("Unsupported Pioneer AV Model")
