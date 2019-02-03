@@ -49,6 +49,12 @@ class VSX528Telnet(object):
         "Send request to decrease volume by 1 unit"""
         self.__sendcmd__("VD")
 
+    def setVol(self, vol):
+        "Send request to decrease volume by 1 unit"""
+        vol = str(int(vol * 2))
+        print(vol)
+        self.__sendcmd__(vol + "VL") # TODO
+
     def isOn(self):
         "Returns true if device is on"""
         status = self.__sendcmd__("?P")
